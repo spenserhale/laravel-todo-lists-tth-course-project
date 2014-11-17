@@ -13,11 +13,11 @@
 
 Route::get('/', function()
 {
-    $data = ['name' => 'jane', 'email' => 'jane@doe.com'];
-    return View::make('hello')->with($data);
-});
-
-Route::get('/hello/{name?}', function($name)
-{
-    return View::make('hello')->with('name', $name);
+	$data = [
+			'name' => 'jane',
+			'email' => 'jane@doe.com',
+			'location' => 'Florida',
+			'last_name' => '<script>window.alert("do not trust user input!");</script>'
+		];
+	return View::make('hello')->withData($data);
 });

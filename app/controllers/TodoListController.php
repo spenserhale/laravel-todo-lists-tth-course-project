@@ -1,6 +1,12 @@
 <?php
 
 class TodoListController extends \BaseController {
+
+	public function __construct()
+	{
+		$this->beforeFilter('csrf', array('on' => 'post'));
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -8,8 +14,10 @@ class TodoListController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$todo_lists = TodoList::all();
+		return View::make('todos.index')->with('todo_lists', $todo_lists);
 	}
+
 
 	/**
 	 * Show the form for creating a new resource.
@@ -18,7 +26,7 @@ class TodoListController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('todos.create');
 	}
 
 
@@ -29,7 +37,26 @@ class TodoListController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		// define rules
+		$rules = array(
+				'name' => array('required', 'unique:todo_lists,name')
+			);
+
+		// pass input to validator
+		$validator = Validator::make(Input::all(), $rules);
+
+		// test if input fails
+		if ($validator->fails()) {
+			return Redirect::route('todos.create')->withInput();
+		}
+
+
+
+		$name = Input::get('name');
+		$list = new TodoList();
+		$list->name = $name;
+		$list->save();
+		return Redirect::route('todos.index');
 	}
 
 
@@ -41,7 +68,11 @@ class TodoListController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$list = TodoList::findOrFail($id);
+		$items = $list->listItems()->get();
+		return View::make('todos.show')
+			->withList($list)
+			->withItems($items);
 	}
 
 

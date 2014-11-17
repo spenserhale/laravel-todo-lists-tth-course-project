@@ -11,17 +11,6 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('todos.index');
-});
+Route::get('/', 'TodoListController@index');
 
-Route::get('/todos', function()
-{
-	return View::make('todos.index');
-});
-
-Route::get('/todos/{id}', function($id)
-{
-	return View::make('todos.show')->withId($id);
-});
+Route::resource('todos', 'TodoListController');

@@ -14,7 +14,8 @@
 Route::get('/', 'TodoListController@index');
 
 Route::get('/db', function(){
-	return DB::select('select database();');
+	$result = DB::table('todo_lists')->where('name', 'Your List')->first();
+	return $result->name;
 });
 
 Route::resource('todos', 'TodoListController');

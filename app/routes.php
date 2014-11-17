@@ -13,6 +13,11 @@
 
 Route::get('/', function()
 {
-    return User::all();
-	//return View::make('hello');
+    $data = ['name' => 'jane', 'email' => 'jane@doe.com'];
+    return View::make('hello')->with($data);
+});
+
+Route::get('/hello/{name?}', function($name)
+{
+    return View::make('hello')->with('name', $name);
 });

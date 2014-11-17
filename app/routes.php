@@ -13,11 +13,15 @@
 
 Route::get('/', function()
 {
-	$data = [
-			'name' => 'jane',
-			'email' => 'jane@doe.com',
-			'location' => 'Florida',
-			'last_name' => '<script>window.alert("do not trust user input!");</script>'
-		];
-	return View::make('hello')->withData($data);
+	return View::make('todos.index');
+});
+
+Route::get('/todos', function()
+{
+	return View::make('todos.index');
+});
+
+Route::get('/todos/{id}', function($id)
+{
+	return View::make('todos.show')->withId($id);
 });

@@ -54,10 +54,10 @@ return array(
 
         'mysql' => array(
             'driver'    => 'mysql',
-            'host'      => $_ENV['clear_db_host'],
-            'database'  => $_ENV['clear_db_database'],
-            'username'  => $_ENV['clear_db_username'],
-            'password'  => $_ENV['clear_db_password'],
+            'host'      => (isset($_ENV['clear_db_host']) ? $_ENV['clear_db_host'] : 'localhost'),
+            'database'  => (isset($_ENV['clear_db_database']) ? $_ENV['clear_db_database'] : 'forge'),
+            'username'  => (isset($_ENV['clear_db_username']) ? $_ENV['clear_db_username'] : 'forge'),
+            'password'  => (isset($_ENV['clear_db_password']) ? $_ENV['clear_db_password'] : ''),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

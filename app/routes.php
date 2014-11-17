@@ -13,4 +13,8 @@
 
 Route::get('/', 'TodoListController@index');
 
+Route::get('/db', function(){
+	return DB::select('select database();');
+});
+
 Route::resource('todos', 'TodoListController');

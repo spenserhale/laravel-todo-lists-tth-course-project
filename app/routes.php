@@ -12,10 +12,8 @@
 */
 
 Route::get('/', 'TodoListController@index');
-
-Route::get('/db', function(){
-	$result = DB::table('todo_lists')->where('name', 'Your List')->first();
-	return $result->name;
-});
-
 Route::resource('todos', 'TodoListController');
+
+// Event::listen('illuminate.query', function($query){
+// 	var_dump($query);
+// });
